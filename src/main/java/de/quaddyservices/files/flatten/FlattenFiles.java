@@ -41,7 +41,7 @@ public class FlattenFiles {
 	private void setFileWildcard(String aString) {
 		String fileRegEx = aString.replaceAll("\\.", "\\\\.").replaceAll("\\?", ".").replaceAll("\\*", ".*");
 		fileRegExPattern = Pattern.compile(fileRegEx, Pattern.CASE_INSENSITIVE);
-		System.out.println("Use File RegEx: " + fileRegExPattern + " (CASE_INSENSITIVE)");
+		System.out.println("Use FileWildcard " + aString + " == File RegEx: " + fileRegExPattern + " (CASE_INSENSITIVE)");
 	}
 
 	private File fromDir;

@@ -13,6 +13,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 /**
  *
@@ -32,14 +33,15 @@ public class FlattenFiles {
 		tempFlattenFiles.flatten();
 	}
 
-	private String fileRegEx;
+	private Pattern fileRegExPattern;
 
 	/**
 	 *
 	 */
 	private void setFileWildcard(String aString) {
-		fileRegEx = aString.replaceAll("\\.", "\\\\.").replaceAll("\\?", ".").replaceAll("\\*", ".*");
-		System.out.println("Use File RegEx: " + fileRegEx);
+		String fileRegEx = aString.replaceAll("\\.", "\\\\.").replaceAll("\\?", ".").replaceAll("\\*", ".*");
+		fileRegExPattern = Pattern.compile(fileRegEx, Pattern.CASE_INSENSITIVE);
+		System.out.println("Use File RegEx: " + fileRegExPattern + " (CASE_INSENSITIVE)");
 	}
 
 	private File fromDir;
@@ -179,7 +181,7 @@ public class FlattenFiles {
 					tempFilesToProcess.addAll(collectFilesToProcess(tempFile));
 				} else {
 					String tempName = tempFile.getName();
-					if (fileRegEx == null || tempName.matches(fileRegEx)) {
+					if (fileRegExPattern == null || fileRegExPattern.matcher(tempName).matches()) {
 						tempFilesToProcess.add(new FileToProcess(tempFile));
 					}
 				}

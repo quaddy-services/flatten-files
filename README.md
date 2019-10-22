@@ -20,3 +20,7 @@ quotes when starting via java -jar, see below.
 mvn package
 and then
 java -jar target\flatten-files-2019.10.1-SNAPSHOT-jar-with-dependencies.jar FROM_DIR TO_DIR FILE_WILDCARD
+
+# FAT32
+You may exceed "Maximum number of files in a single folder"
+convert e: /fs:ntfs

@@ -86,7 +86,7 @@ public class FlattenFiles {
 				tempNextInfo = System.currentTimeMillis() + 5000;
 				double tempPercent = (i * 1.0) / (aFilesToProcess.size() * 1.0) * 100.0;
 				File tempFile = tempFileToProcess.getFile();
-				System.out.println("Copy " + Math.round(tempPercent) + "% (current " + tempFile.getPath() + ")");
+				System.out.println("Copy " + Math.round(tempPercent) + "% (current " + tempFile.getPath() + " -> " + tempFileToProcess.getTargetName() + ")");
 			}
 			copyFile(tempFileToProcess);
 		}

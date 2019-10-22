@@ -26,7 +26,20 @@ public class FlattenFiles {
 		FlattenFiles tempFlattenFiles = new FlattenFiles();
 		tempFlattenFiles.setFromDir(new File(args[0]));
 		tempFlattenFiles.setToDir(new File(args[1]));
+		if (args.length >= 3) {
+			tempFlattenFiles.setFileWildcard(args[2]);
+		}
 		tempFlattenFiles.flatten();
+	}
+
+	private String fileRegEx;
+
+	/**
+	 *
+	 */
+	private void setFileWildcard(String aString) {
+		fileRegEx = aString.replaceAll("\\.", "\\\\.").replaceAll("\\?", ".").replaceAll("\\*", ".*");
+		System.out.println("Use File RegEx: " + fileRegEx);
 	}
 
 	private File fromDir;
@@ -163,7 +176,10 @@ public class FlattenFiles {
 				if (tempFile.isDirectory()) {
 					tempFilesToProcess.addAll(collectFilesToProcess(tempFile));
 				} else {
-					tempFilesToProcess.add(new FileToProcess(tempFile));
+					String tempName = tempFile.getName();
+					if (fileRegEx == null || tempName.matches(fileRegEx)) {
+						tempFilesToProcess.add(new FileToProcess(tempFile));
+					}
 				}
 			}
 		}

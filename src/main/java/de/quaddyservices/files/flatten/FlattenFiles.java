@@ -123,7 +123,9 @@ public class FlattenFiles {
 		} catch (IOException e) {
 			throw new IOException("Error copying " + tempSource + " to " + tempTarget, e);
 		}
-		tempTarget.setLastModified(tempSource.lastModified());
+		if (!tempTarget.setLastModified(tempSource.lastModified())) {
+			System.out.println("Could not set file date for target " + tempTarget.getAbsolutePath());
+		}
 	}
 
 	/**
